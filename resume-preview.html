@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="SmartCV Builder - Create Your Resume Fast" />
+  <meta property="og:description"
+    content="Generate job-winning, ATS-optimized resumes in under 60 seconds. Free, fast, and customizable!" />
+  <meta property="og:image" content="https://yourdomain.com/images/og-preview.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourusername.github.io/smartcv/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SmartCV Builder" />
+  <meta name="twitter:description" content="Generate job-winning, ATS-optimized resumes in under 60 seconds." />
+  <meta name="twitter:image" content="https://yourdomain.com/images/og-preview.png" />
+
+
+  <title>Resume Preview</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 40px 20px;
+      background-color: #fdfdfd;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .download-btn {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .download-btn button {
+      padding: 12px 24px;
+      background-color: #2777c6;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .download-btn button:hover {
+      background-color: #0056b3;
+    }
+
+    .resume-box {
+      background: #fff;
+      padding: 40px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #2777c6;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 4px 0;
+      color: #333;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .sub-heading {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    @media print {
+      .download-btn {
+        display: none;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+        background: white;
+      }
+
+      .resume-box {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Small Download Button (top center) -->
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button onclick="window.print()" style="
+      background-color: #2777c6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease;
+    ">
+      📄 Download Resume
+    </button>
+
+    <div class="start-over-btn" style="text-align: center; margin-top: 10px;">
+      <button onclick="startOver()"
+        style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        🔄 Start Over
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Resume Content Container -->
+  <div id="resumeOutput">
+    <!-- This content will be replaced by JavaScript below if resumeData exists -->
+    <div class="resume-box">
+      <h1>John Doe</h1>
+      <p>Email: john.doe@example.com | Phone: +123456789 | LinkedIn: linkedin.com/in/johndoe</p>
+      <p>Website: www.johndoe.dev | Address: Lahore, Pakistan</p>
+
+      <div class="section">
+        <h2>Professional Summary</h2>
+        <p>Motivated and detail-oriented software engineer with 3+ years of experience in web development, focused on
+          creating clean, efficient code.</p>
+      </div>
+
+      <div class="section">
+        <h2>Education</h2>
+        <p class="sub-heading">BS Computer Science</p>
+        <p>COMSATS University, 2018 - 2022</p>
+      </div>
+
+      <div class="section">
+        <h2>Experience</h2>
+        <p class="sub-heading">Frontend Developer — XYZ Tech</p>
+        <p>2022 - Present</p>
+        <p>Developed responsive websites using React and TailwindCSS, and collaborated with designers to implement UI/UX
+          best practices.</p>
+      </div>
+
+      <div class="section">
+        <h2>Skills</h2>
+        <p>HTML, CSS, JavaScript, React, Git, Figma</p>
+      </div>
+
+      <div class="section">
+        <h2>Certifications</h2>
+        <p class="sub-heading">Google UX Design Certificate</p>
+        <p>Issued by Coursera - 2023</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const resumeData = JSON.parse(localStorage.getItem('resumeData'));
+    const output = document.getElementById('resumeOutput');
+
+    if (resumeData && output) {
+      output.innerHTML = `
+        <div class="resume-box">
+          <h1>${resumeData.fullName}</h1>
+          <p>Email: ${resumeData.email} | Phone: ${resumeData.phone} | LinkedIn: ${resumeData.linkedin}</p>
+          <p>Website: ${resumeData.website} | Address: ${resumeData.address}</p>
+
+          <div class="section">
+            <h2>Professional Summary</h2>
+            <p>${resumeData.summary}</p>
+          </div>
+
+          <div class="section">
+            <h2>Education</h2>
+            <p class="sub-heading">${resumeData.degree}</p>
+            <p>${resumeData.institute}, ${resumeData.eduStart} - ${resumeData.eduEnd}</p>
+          </div>
+
+          <div class="section">
+            <h2>Experience</h2>
+            <p class="sub-heading">${resumeData.jobTitle} — ${resumeData.company}</p>
+            <p>${resumeData.expStart} - ${resumeData.expEnd}</p>
+            <p>${resumeData.expDesc}</p>
+          </div>
+
+          <div class="section">
+            <h2>Skills</h2>
+            <p>${resumeData.skills}</p>
+          </div>
+
+          <div class="section">
+            <h2>Certifications</h2>
+            <p class="sub-heading">${resumeData.cert}</p>
+            <p>Issued by ${resumeData.certIssuer} - ${resumeData.certYear}</p>
+          </div>
+        </div>
+      `;
+    }
+
+
+    function startOver() {
+      if (confirm("Are you sure you want to clear your data and start over?")) {
+        localStorage.removeItem('resumeData');
+        window.location.href = "resume-form.html";
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

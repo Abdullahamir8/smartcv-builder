@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="SmartCV Builder helps you create ATS-friendly resumes in seconds. Simple, fast & free resume generator for job seekers.">
+    <meta name="keywords" content="resume builder, ATS resume, CV generator, free resume, job application, SmartCV">
+    <meta name="author" content="SmartCV Builder Team">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="SmartCV Builder - Create Your Resume Fast" />
+    <meta property="og:description"
+        content="Generate job-winning, ATS-optimized resumes in under 60 seconds. Free, fast, and customizable!" />
+    <meta property="og:image" content="https://abdullahamir8.github.io/smartcv-builder/images/og-preview.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://abdullahamir8.github.io/smartcv-builder" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SmartCV Builder" />
+    <meta name="twitter:description" content="Generate job-winning, ATS-optimized resumes in under 60 seconds." />
+    <meta name="twitter:image" content="https://abdullahamir8.github.io/smartcv-builder/images/og-preview.png" />
+
+
+    <title>SmartCV - Resume Form</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #fdfdfd;
+        }
+
+        h1,
+        h2 {
+            color: #2777c6;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin: 16px 0 6px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Build Your Resume</h1>
+
+    <form id="resumeForm">
+        <div class="section">
+            <h2>Personal Information</h2>
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" required />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" required />
+
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" required />
+
+            <label for="address">Address</label>
+            <input type="text" id="address" />
+
+            <label for="linkedin">LinkedIn</label>
+            <input type="url" id="linkedin" />
+
+            <label for="website">Portfolio / Website</label>
+            <input type="url" id="website" />
+        </div>
+
+        <div class="section">
+            <h2>Summary</h2>
+            <label for="summary">Professional Summary</label>
+            <textarea id="summary" placeholder="A short paragraph about your career goals and strengths."></textarea>
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            <label for="degree">Degree</label>
+            <input type="text" id="degree" />
+
+            <label for="institute">Institution</label>
+            <input type="text" id="institute" />
+
+            <label for="eduStart">Start Year</label>
+            <input type="text" id="eduStart" />
+
+            <label for="eduEnd">End Year</label>
+            <input type="text" id="eduEnd" />
+        </div>
+
+        <div class="section">
+            <h2>Experience</h2>
+            <label for="jobTitle">Job Title</label>
+            <input type="text" id="jobTitle" />
+
+            <label for="company">Company</label>
+            <input type="text" id="company" />
+
+            <label for="expStart">Start Date</label>
+            <input type="text" id="expStart" />
+
+            <label for="expEnd">End Date</label>
+            <input type="text" id="expEnd" />
+
+            <label for="expDesc">Description</label>
+            <textarea id="expDesc"></textarea>
+        </div>
+
+        <div class="section">
+            <h2>Skills</h2>
+            <label for="skills">Skills (comma-separated)</label>
+            <input type="text" id="skills" placeholder="HTML, CSS, React, Figma, Git" />
+        </div>
+
+        <div class="section">
+            <h2>Certifications</h2>
+            <label for="cert">Certification Name</label>
+            <input type="text" id="cert" />
+
+            <label for="certIssuer">Issuer</label>
+            <input type="text" id="certIssuer" />
+
+            <label for="certYear">Year</label>
+            <input type="text" id="certYear" />
+        </div>
+
+        <button type="submit">Next: Preview Resume</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('resumeForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const requiredFields = [
+                'fullName', 'email', 'phone', 'summary', 'degree', 'institute',
+                'eduStart', 'eduEnd', 'jobTitle', 'company', 'expStart', 'expEnd'
+            ];
+
+            const formData = {};
+            let hasEmpty = false;
+
+            requiredFields.forEach(id => {
+                const input = document.getElementById(id);
+                formData[id] = input?.value.trim() || '';
+                if (!formData[id]) {
+                    hasEmpty = true;
+                }
+            });
+
+            if (hasEmpty) {
+                alert('Please fill out all required fields before continuing.');
+                return;
+            }
+
+            // Add optional fields
+            formData.address = document.getElementById('address')?.value || '';
+            formData.linkedin = document.getElementById('linkedin')?.value || '';
+            formData.website = document.getElementById('website')?.value || '';
+            formData.expDesc = document.getElementById('expDesc')?.value || '';
+            formData.skills = document.getElementById('skills')?.value || '';
+            formData.cert = document.getElementById('cert')?.value || '';
+            formData.certIssuer = document.getElementById('certIssuer')?.value || '';
+            formData.certYear = document.getElementById('certYear')?.value || '';
+
+            localStorage.setItem('resumeData', JSON.stringify(formData));
+            alert("✅ Your data has been saved! Redirecting to preview...");
+            window.location.href = "resume-preview.html";
+        });
+    </script>
+
+
+</body>
+
+</html>
